@@ -47,6 +47,7 @@ public class InmueblesController {
         if(fechaHasta == null){
             fechaHasta = "2299-01-01";
         }
+
         Date dateDesde = Date.valueOf(fechaDesde);
         Date dateHasta = Date.valueOf(fechaHasta);
         return inmuebleRepository.findAll(busqueda,zona,precioDesde,precioHasta,dateDesde,dateHasta);
@@ -68,7 +69,7 @@ public class InmueblesController {
         return inmuebleRepository.save(inmueble);
     }
 
-    @PutMapping("/inmuebles/{id}")
+    @PostMapping("/inmuebles/{id}")
     public ResponseEntity < Inmueble > updateInmueble(@PathVariable(value = "id") Long id,
                                                       @Valid @RequestBody Inmueble inmueblePost) throws ResourceNotFoundException {
         Inmueble inmueble = inmuebleRepository.findById(id)
@@ -79,7 +80,7 @@ public class InmueblesController {
         inmueble.setDescripcion(inmueblePost.getDescripcion());
         inmueble.setMetrosConstruidos(inmueblePost.getMetrosConstruidos());
         inmueble.setMetrosUtiles(inmueblePost.getMetrosUtiles());
-        inmueble.setUbicacion(inmueble.getUbicacion());
+        inmueble.setUbicacion(inmueblePost.getUbicacion());
         inmueble.setZona(inmueblePost.getZona());
         inmueble.setFechaPublicacion(inmueblePost.getFechaPublicacion());
         inmueble.setHabitaciones(inmueblePost.getHabitaciones());

@@ -91,14 +91,14 @@ public class InmueblesController {
     }
 
     @DeleteMapping("/inmuebles/{id}")
-    public Map< String, Boolean > deleteInmueble(@PathVariable(value = "id") Long id)
+    public int deleteInmueble(@PathVariable(value = "id") Long id)
             throws ResourceNotFoundException {
+        int rowsAffected = -1;
         Inmueble inmueble = inmuebleRepository.findById(id)
                 .orElseThrow(() -> new ResourceNotFoundException("Inmueble no encontrado :: " + id));
 
         inmuebleRepository.delete(inmueble);
-        Map < String, Boolean > response = new HashMap< >();
-        response.put("deleted", Boolean.TRUE);
-        return response;
+        rowsAffected = 1;
+        return rowsAffected;
     }
 }
